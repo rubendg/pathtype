@@ -9,10 +9,9 @@
 
 namespace PathType;
 
+use \InvalidArgumentException;
 use \PathType\AbsDir;
 use \PathType\Path;
-use \PathType\TypeError;
-use \ReflectionClass;
 
 trait IsRel {
    
@@ -22,12 +21,7 @@ trait IsRel {
       }
       
       if(!$parent instanceof AbsDir) {
-         throw new TypeError(
-            sprintf(
-               'Cannot convert relative directory to absolute path given a path of type: %s', 
-               (new ReflectionClass($parent))->getName()
-            )
-         );
+         throw new InvalidArgumentException('Could not convert a relative into an absolute file path based on a parent that isn\'t an AbsDir');
       }
       
       $path = Path::combine($parent->get(), $this->get());
