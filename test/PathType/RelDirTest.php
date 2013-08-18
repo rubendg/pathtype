@@ -39,7 +39,7 @@ class RelDirTest extends AbstractPathTest {
    }
    
    public function testDotFile() {
-      $this->assertInstanceOf('\PathType\RelDir', Path::fromPath('.foo', false));
+      $this->assertInstanceOf('\PathType\RelDir', Path::from('.foo', false));
    }
 }
 

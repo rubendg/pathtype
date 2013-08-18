@@ -42,7 +42,7 @@ abstract class Path implements IPath {
       return new static($path, self::normalizeToArray($path));
    }
    
-   public static function fromPath($path, $isFile) {
+   public static function from($path, $isFile) {
       $isRelative = self::isRelative($path);
       
       if($isRelative && $isFile) {
@@ -72,19 +72,19 @@ abstract class Path implements IPath {
       return self::arrayToPathString($this->normalizedPath, false, $this->hasTrailingSlash);
    }
    
-   public static function isRelative($path) {
+   protected static function isRelative($path) {
       return !self::isAbsolute($path);
    }
    
-   public static function isAbsolute($path) {
+   protected static function isAbsolute($path) {
       return self::startsWithDirectorySeparator($path);
    }
    
-   public static function startsWithDirectorySeparator($path) {
+   private static function startsWithDirectorySeparator($path) {
       return stripos($path, DIRECTORY_SEPARATOR) === 0;
    }
    
-   public static function endsWithDirectorySeparator($path) {
+   protected static function endsWithDirectorySeparator($path) {
       return substr($path, -1) === DIRECTORY_SEPARATOR;
    }
 
@@ -93,7 +93,7 @@ abstract class Path implements IPath {
 //   must be no slashes, empty elements, or device names (c:\) in the array
 //   (so also no leading and trailing slashes - it does not distinguish
 //   relative and absolute paths)
-   public static function normalizeArray(array $parts, $allowAboveRoot) {
+   private static function normalizeArray(array $parts, $allowAboveRoot) {
       // if the path tries to go above the root, `up` ends up > 0
       $up = 0;
       for($i = count($parts) - 1; $i >= 0; $i--) {
@@ -119,7 +119,7 @@ abstract class Path implements IPath {
       return $parts;
    }
    
-   public static function normalizeToArray($path) {
+   private static function normalizeToArray($path) {
       if(empty($path)) {
          $path = self::CURRENT_DIRECTORY;
       }
@@ -150,7 +150,7 @@ abstract class Path implements IPath {
       }
    }
 
-   public static function hasTrailingSlash($path) {
+   private static function hasTrailingSlash($path) {
       return self::endsWithDirectorySeparator($path) || (substr($path, -2) === DIRECTORY_SEPARATOR . self::CURRENT_DIRECTORY);
    }
 
@@ -165,7 +165,7 @@ abstract class Path implements IPath {
       return $pre . implode(DIRECTORY_SEPARATOR, $parts) . $post;
    }
    
-   public static function pathStringToArray($path) {
+   private static function pathStringToArray($path) {
       return array_values(array_filter(explode(DIRECTORY_SEPARATOR, $path), function($p) {
          return trim($p) !== '';
       }));

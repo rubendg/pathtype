@@ -101,7 +101,7 @@ class PathTest extends AbstractPathTest {
 
    public function testToString() {
       $p = './foo';
-      $this->assertEquals('foo', (string) Path::fromPath($p, true));
+      $this->assertEquals('foo', (string) Path::from($p, true));
    }
    
    public function testParentAbsPath() {

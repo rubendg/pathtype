@@ -15,12 +15,13 @@ is not meant to be a port in anyway. Here is the type hierachy:
 
 A quick example. 
 
-Using a type hint we can express that the *newApacheConfig* function only
-works if it gets and *AbsDir* (short for absolute directory).
+Using the factory function `Path::from` we can produce any of the types in the bottom
+of the diagram. It takes a well-formed path string and a flag indicating whether the path
+is a directory or a file (since this cannot actually be determined from the path in all cases). 
 
 ```php
 $path = '/etc/apache2/site-enabled';
-$sitesEnabled = Path::fromPath($path, is_dir($path));
+$sitesEnabled = Path::from($path, is_dir($path));
 
 function newApacheConfig(AbsDir $sitesEnabled, $name) {
    mkdir($sitesEnabled
@@ -31,6 +32,10 @@ function newApacheConfig(AbsDir $sitesEnabled, $name) {
 
 newApacheConfig($sitesEnabled);
 ```
+
+One of the added benefits besides the path manipulation functions is that
+we can now use type hinting in order to express that *newApacheConfig* expects
+an absolute directory path. 
 
 Notes:
 
