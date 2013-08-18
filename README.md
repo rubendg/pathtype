@@ -43,3 +43,8 @@ Notes:
 - No tilde (~) support. Let the OS resolve the tilde to the actual home directory before using the library.
 
 Warning: this library is not battle tested
+
+Similar:
+
+- http://hackage.haskell.org/package/pathtype
+- https://github.com/eloquent/pathogen
