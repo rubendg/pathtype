@@ -7,7 +7,11 @@ are reflected in the type and invalid operations (like appending an absolute dir
 relative file path) are simply not possible by construction.
 
 The library is heavily inspired by the Haskell [pathtype](http://hackage.haskell.org/package/pathtype) library, but
-is not meant to be a port in anyway.
+is not meant to be a port in anyway. Here is the type hierachy:
+
+
+![Type hierarchy](https://github.com/rubendg/pathtype/raw/master/doc/types.png)
+
 
 A quick example. 
 
