@@ -90,6 +90,14 @@ class AbsDirTest extends AbstractPathTest {
       $this->assertInstanceOf('\PathType\RelDir', $v);
       $this->assertEquals(Path::arrayToPathString(['b'], false, true), $v->get());
    }
+   
+   public function testParent() {
+      $f = AbsDir::create(Path::arrayToPathString(['a','b'], true));
+      $this->assertInstanceOf('\PathType\AbsDir', $f->parent());
+      $this->assertInstanceOf('\PathType\AbsDir', $f->parent()->parent());
+      $this->assertInstanceOf('\PathType\AbsDir', $f->parent()->parent()->parent());
+      $this->assertEquals('/', $f->parent()->parent()->parent()->get());
+   }
 
 }
 

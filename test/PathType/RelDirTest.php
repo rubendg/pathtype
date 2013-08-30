@@ -41,6 +41,14 @@ class RelDirTest extends AbstractPathTest {
    public function testDotFile() {
       $this->assertInstanceOf('\PathType\RelDir', Path::from('.foo', false));
    }
+   
+   public function testParent() {
+      $f = RelDir::create(Path::arrayToPathString(['a','b'], false));
+      $this->assertInstanceOf('\PathType\RelDir', $f->parent());
+      $this->assertInstanceOf('\PathType\RelDir', $f->parent()->parent());
+      $this->assertInstanceOf('\PathType\RelDir', $f->parent()->parent()->parent());
+      $this->assertEquals('.', $f->parent()->parent()->parent()->get());
+   }
 }
 
 ?>

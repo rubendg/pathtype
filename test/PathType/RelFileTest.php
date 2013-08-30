@@ -49,4 +49,12 @@ class RelFileTest extends AbstractPathTest {
       $this->assertEquals(Path::arrayToPathString(['a', 'b'], true), $abs->get());
    }
    
+   public function testParent() {
+      $f = RelFile::create(Path::arrayToPathString(['a','b'], false));
+      $this->assertInstanceOf('\PathType\RelDir', $f->parent());
+      $this->assertInstanceOf('\PathType\RelDir', $f->parent()->parent());
+      $this->assertInstanceOf('\PathType\RelDir', $f->parent()->parent()->parent());
+      $this->assertEquals('.', $f->parent()->parent()->parent()->get());
+   }
+   
 }

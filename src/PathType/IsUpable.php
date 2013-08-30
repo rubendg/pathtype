@@ -22,12 +22,19 @@ trait IsUpable {
       
       $actualN = count($this->normalizedPath);
       if($n >= $actualN) {
-         return static::create(Path::arrayToPathString([], $this->isAbsolute, $this->hasTrailingSlash));
+         if($this->isAbsolute) {
+            return AbsDir::create(Path::arrayToPathString([], $this->isAbsolute, $this->hasTrailingSlash));
+         }
+         
+         return RelDir::create(Path::arrayToPathString([], $this->isAbsolute, $this->hasTrailingSlash));
       }
       
       $upN = array_slice($this->normalizedPath, 0, $actualN - $n);
       
-      return static::create(Path::arrayToPathString($upN, $this->isAbsolute, $this->hasTrailingSlash));
+      if($this->isAbsolute) {
+         return AbsDir::create(Path::arrayToPathString($upN, $this->isAbsolute, $this->hasTrailingSlash));
+      }
+      return RelDir::create(Path::arrayToPathString($upN, $this->isAbsolute, $this->hasTrailingSlash));
    }
    
 }
